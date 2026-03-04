@@ -3,6 +3,7 @@
 __pycache__/
 .vscode/
 solver/
+*.egg-info/
 
 #The Data
 data/raw/
