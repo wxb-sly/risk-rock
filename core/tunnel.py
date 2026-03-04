@@ -28,12 +28,18 @@ class TunnelSection:
         self.support = support
         self.fos = fos
 
-    def calculate_risk_factor(self):
-        strength = self.geology.estimated_strength(confinement=0, stress_dir=90)
+    def calculate_risk_factor(self, confinement=0, stress_dir=90):
+        strength = self.geology.estimated_strength(confinement=confinement, stress_dir=stress_dir)
         return np.where(strength < 50, "Low Risk", "High Risk")
 
     def total_cost(self, length):
         return self.support.cost_per_m * length
+
+    def probabilistic_cost(self, length, induced_stress, confinement):
+        strength= self.geology.estimated_strength(confinement=confinement)
+        actual_fos = strength/induced_stress
+        base_cost = self.total_cost(length)
+        return np.where((actual_fos<self.fos), base_cost*2.5, base_cost)
 
     def __repr__(self):
         active = [f"{k.lstrip('_')}={v!r}" for k, v in vars(self).items() if v is not None]
