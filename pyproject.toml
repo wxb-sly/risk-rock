@@ -6,13 +6,11 @@ build-backend = "setuptools.build_meta"
 name = "m7_risk_rock"
 version = "0.1.0"
 description = "Himalayan Rock Mass Risk Engine"
-requires-python = ">=3.9"
-dependencies = [
-    "numpy",
-    "scipy",
-    "matplotlib",
-    "pymc"
-]
+requires-python = ">=3.11"
+# Dependencies omitted for pip.
+# The mathematical engine (numpy, scipy, pymc) MUST be managed
+# strictly via Conda (conda-forge) to ensure C-compiler stability.
+dependencies = []
 
 [tool.setuptools.packages.find]
 where = ["."]
